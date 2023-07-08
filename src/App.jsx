@@ -11,8 +11,6 @@ const App = () => {
   
   - react-markdown
   
-  - digital sweet and blood
-    
   *hope you enjoy the app!*
   `)
 
