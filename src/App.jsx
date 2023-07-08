@@ -14,34 +14,16 @@ const App = () => {
   *hope you enjoy the app!*
   `)
 
-  const [markdown, setMarkdown] = useState(placeHolder)
+  const [markdown, setMarkdown] = useState("")
 
+  // Set the placeholder on load
   useEffect(() => {
-    console.log("I run once! Placerholder set.")
-    setMarkdown(markdown)
+    setPlaceHolder(placeHolder)
   }, [])
 
-  function updateMarkdown(e) {
-    e.preventDefault()
-
-    const textArea = document.getElementById("text-area")
-    let newMarkdown = textArea.value
-
-    setMarkdown(newMarkdown)
-    setPlaceHolder(newMarkdown)
-  }
-
-  const Editor = () => {
-    return (
-      <div>
-        <form onSubmit={updateMarkdown}>
-          <textarea placeholder={placeHolder} name="markdown" id="text-area" cols="50" rows="30"></textarea>
-          <button className="submit-button" type="submit">
-            Convert
-          </button>
-        </form>
-      </div>
-    )
+  // Convert in real time
+  function handleChange(e) {
+    setMarkdown(e.target.value)
   }
 
   return (
@@ -53,7 +35,7 @@ const App = () => {
         </h2>
       </header>
       <div className="container">
-        <Editor />
+        <textarea placeholder={placeHolder} value={markdown} onChange={handleChange} cols="50" rows="30" />
         <ReactMarkdown className="preview" children={markdown} />
       </div>
       <footer className="footer">
