@@ -12,6 +12,18 @@ body {
   font-family: sans-serif;
 }
 
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
 footer {
   display: flex;
   justify-content: center;
@@ -42,4 +54,15 @@ code {
 .submit-button {
   margin: 1rem 0 0 0;
   width: 100%;
+}
+
+.sidebar__li {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.sidebar__li:hover {
+  cursor: pointer;
+  background: #313131;
 }
