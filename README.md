@@ -4,7 +4,7 @@
 
 - React
 - Markdown
-- react-markdown(to sanitize html)
+- react-markdown(to sanitize HTML)
 
 ## Goals & Challenges
 
