@@ -15,6 +15,8 @@ const App = () => {
   `)
 
   const [markdown, setMarkdown] = useState("")
+  const [title, setTitle] = useState("")
+  const [notes, setNotes] = useState([])
 
   // Set the placeholder on load
   useEffect(() => {
@@ -26,6 +28,13 @@ const App = () => {
     setMarkdown(e.target.value)
   }
 
+  function saveNote(e) {
+    e.preventDefault()
+    notes.push({ title: title, content: markdown })
+    console.log("note saved")
+    localStorage.setItem("notes", JSON.stringify(notes))
+  }
+
   return (
     <>
       <header>
@@ -35,8 +44,12 @@ const App = () => {
         </h2>
       </header>
       <div className="container">
-        <textarea placeholder={placeHolder} value={markdown} onChange={handleChange} cols="50" rows="30" />
-        <ReactMarkdown className="preview" children={markdown} />
+        <form action="" onSubmit={saveNote}>
+          <button type="submit">Save</button>
+          <input type="text" value={title} placeholder="add title" onChange={e => setTitle(e.target.value)} />
+          <textarea placeholder={placeHolder} value={markdown} onChange={handleChange} cols="50" rows="30" />
+          <ReactMarkdown className="preview" children={markdown} />
+        </form>
       </div>
       <footer className="footer">
         <small>{currentYear} Marcus Hugo. Made with 🥵 and ☕️ .</small>
