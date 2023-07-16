@@ -31,17 +31,31 @@ const App = () => {
     localStorage.setItem("notes", JSON.stringify(notes))
   }, [notes])
 
-  // Convert markdown to html in real time
-  function handleChange(e) {
-    setMarkdown(e.target.value)
-  }
-
-  // Update notes array with new note
-  function saveNote(e) {
-    e.preventDefault()
+  // New note function here
+  function newNote() {
     let newNote = { id: Date.now(), title: title, content: markdown }
     setNotes(oldNotes => [newNote, ...oldNotes])
-    console.log("note saved")
+    console.log("new note created")
+  }
+
+  // Update notes array with saved note
+  function saveNote(e) {
+    e.preventDefault()
+    let updatedNote = { id: Date.now(), title: title, content: markdown }
+    let savedNotes = []
+    savedNotes = [updatedNote]
+    let newlySavedNotes = [...notes]
+    newlySavedNotes.shift()
+    let allSavedNotes = savedNotes.concat(newlySavedNotes)
+
+    setNotes(allSavedNotes)
+    // setNotes(function (notes) {
+    //   let newNote = { id: Date.now(), title: title, content: markdown }
+    //   notes.shift()
+    //   return [newNote, ...notes]
+    // })
+
+    console.log("note updated and saved")
   }
 
   function updateNote(currentNoteId) {
@@ -50,7 +64,7 @@ const App = () => {
 
       for (let i = 0; i < notes.length; i++) {
         if (notes[i].id === currentNoteId) {
-          newlyArrangedNotes.unshift({ ...notes[i], body: markdown })
+          newlyArrangedNotes.unshift({ ...notes[i] })
           setTitle(newlyArrangedNotes[0].title)
           setMarkdown(newlyArrangedNotes[0].content)
         } else {
@@ -72,13 +86,14 @@ const App = () => {
       <div className="container">
         {/* Sidebar */}
         <div className="sidebar">
+          <button onClick={newNote}>New Note</button>
           <h3>Notes:</h3>
           <ul>
             {notes.map(note => {
               return (
                 <li key={note.id} id={note.id} onClick={() => updateNote(note.id)} className="sidebar__li">
                   <p>{note.title}</p>
-                  {/* <button onClick={updateNote}>Edit</button> */}
+
                   <button
                     onClick={() => {
                       setNotes(notes.filter(n => n.id !== note.id))
@@ -92,11 +107,16 @@ const App = () => {
           </ul>
         </div>
         <form action="" onSubmit={saveNote}>
-          <input type="text" value={title} placeholder="add title" onChange={e => setTitle(e.target.value)} />
-          <button type="submit">Save</button>
+          <div className="container">
+            <div>
+              <input type="text" value={title} placeholder="add title" onChange={e => setTitle(e.target.value)} />
+              <button type="submit">Save</button>
 
-          <textarea placeholder={placeHolder} value={markdown} onChange={handleChange} cols="50" rows="30" />
-          <ReactMarkdown className="preview" children={markdown} />
+              <textarea placeholder={placeHolder} value={markdown} onChange={e => setMarkdown(e.target.value)} cols="50" rows="30" />
+            </div>
+
+            <ReactMarkdown className="preview" children={markdown} />
+          </div>
         </form>
       </div>
       <footer className="footer">

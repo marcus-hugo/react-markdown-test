@@ -32,18 +32,19 @@ footer {
 
 .container {
   display: flex;
-  justify-content: center;
+  // justify-content: center;
 }
 
 .preview {
   background: #262626;
   padding: 1rem;
-  width: 50vw;
+  width: 50vh;
   max-width: 60ch;
 }
 
 textarea {
   display: block;
+  min-width: 50vh;
 }
 
 code {
@@ -60,6 +61,7 @@ code {
   display: flex;
   align-items: center;
   cursor: pointer;
+  padding: 0 0.5rem;
 }
 
 .sidebar__li:hover {
